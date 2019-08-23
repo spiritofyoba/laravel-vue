@@ -9,28 +9,19 @@
             </div>
         </div>
 
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Item Name</th>
-                <th>Item Price</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="post in posts" :key="post.id">
-                <td class="align-middle">{{ post.id }}</td>
-                <td class="align-middle">{{ post.title }}</td>
-                <td class="align-middle">{{ post.body }}</td>
-                <td class="align-middle">
-                    <router-link :to="{name: 'edit', params: { id: post.id }}" class="btn btn-primary">Edit</router-link>
-                    <router-link :to="{name: 'view', params: { id: post.id }}" class="btn btn-success">View</router-link>
-                    <button class="btn btn-danger" @click.prevent="deletePost(post.id)">Delete</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="row align-items-center mt-2" v-for="post in posts" :key="post.id">
+            <div class="col-xl-1">{{ post.id }}</div>
+            <div class="col-xl-3">{{ post.title }}</div>
+            <div class="col-xl-5">{{ post.body.slice(0, 100) + '...' }}</div>
+            <div class="col-xl-3 text-right">
+                <router-link :to="{name: 'edit', params: { id: post.id }}" class="btn btn-primary">Edit</router-link>
+                <router-link :to="{name: 'view', params: { id: post.id }}" class="btn btn-success">View</router-link>
+                <button class="btn btn-danger" @click.prevent="deletePost(post.id)">Delete</button>
+            </div>
+            <div class="col-12">
+                <hr>
+            </div>
+        </div>
     </div>
 </template>
 
