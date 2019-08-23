@@ -21,50 +21,30 @@ window.Vue = require('vue');
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-import VueRouter from 'vue-router';
-Vue.use(VueRouter);
 
+import bearer from '@websanova/vue-auth/drivers/auth/bearer'
 import VueAxios from 'vue-axios';
 import axios from 'axios';
-
+import auth from './auth'
+import VueAuth from '@websanova/vue-auth'
+import VueRouter from 'vue-router';
 import App from './App.vue';
-Vue.use(VueAxios, axios);
-
+import router from './router';
 import HomeComponent from './components/HomeComponent.vue';
-import CreateComponent from './components/CreateComponent.vue';
-import IndexComponent from './components/IndexComponent.vue';
-import EditComponent from './components/EditComponent.vue';
-import ViewComponent from './components/ViewComponent.vue';
 
-const routes = [
-    {
-        name: 'home',
-        path: '/',
-        component: HomeComponent
-    },
-    {
-        name: 'create',
-        path: '/create',
-        component: CreateComponent
-    },
-    {
-        name: 'posts',
-        path: '/posts',
-        component: IndexComponent
-    },
-    {
-        name: 'edit',
-        path: '/edit/:id',
-        component: EditComponent
-    },
-    {
-        name: 'view',
-        path: '/post/:id',
-        component: ViewComponent
-    }
-];
+// Set Vue globally
+window.Vue = Vue;
+// Set Vue router
+Vue.router = router;
+Vue.use(VueRouter);
 
-const router = new VueRouter({ mode: 'history', routes: routes});
+// Set Vue authentication
+Vue.use(VueAxios, axios);
+axios.defaults.baseURL = `/api`;
+Vue.use(VueAuth, auth);
+
+Vue.component('home', HomeComponent);
+
 const app = new Vue(Vue.util.extend({ router }, App)).$mount('#app');
 
 /**

@@ -1,18 +1,6 @@
 <template>
     <div class="container-fluid">
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark row">
-            <ul class="navbar-nav justify-content-start container">
-                <li class="nav-item">
-                    <router-link to="/" class="nav-link">Home</router-link>
-                </li>
-                <li class="nav-item">
-                    <router-link to="/create" class="nav-link">Create Post</router-link>
-                </li>
-                <li class="nav-item">
-                    <router-link to="/posts" class="nav-link">Posts</router-link>
-                </li>
-            </ul>
-        </nav>
+        <navigationMenu></navigationMenu>
         <div class="row">
             <div class="container">
                 <transition name="fade">
@@ -38,7 +26,15 @@
 </style>
 
 <script>
-
-    export default{
+    import navigationMenu from './components/Menu.vue';
+    export default {
+        data() {
+            return {
+                //
+            }
+        },
+        components: {
+            navigationMenu
+        }
     }
 </script>
