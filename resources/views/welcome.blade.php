@@ -7,7 +7,7 @@
         <title>Laravel</title>
 
         <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet"/>
-
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 

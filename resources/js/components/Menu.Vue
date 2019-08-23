@@ -8,11 +8,16 @@
                 </router-link>
             </li>
             <!--LOGGED USER-->
+            <li class="nav-item" v-if="$auth.check()">
+                <router-link :to="{ name : 'posts' }">Posts</router-link>
+            </li>
+
             <li class="nav-item" v-if="$auth.check(2)" v-for="(route, key) in routes.user" v-bind:key="route.path">
                 <router-link :to="{ name : route.path }" :key="key">
                     {{route.name}}
                 </router-link>
             </li>
+
             <!--LOGGED ADMIN-->
             <li class="nav-item" v-if="$auth.check(1)" v-for="(route, key) in routes.admin" v-bind:key="route.path">
                 <router-link :to="{ name : route.path }" :key="key">

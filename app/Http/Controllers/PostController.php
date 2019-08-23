@@ -24,30 +24,54 @@ class PostController extends Controller
         return new PostCollection(Post::all());
     }
 
-    public function view($id)
+    public function view($slug)
     {
-        $post = Post::find($id);
+        if (is_numeric($slug)) {
+            $post = Post::findOrFail($slug);
+            return response()->json($post);
+        }
+        $post = Post::whereSlug($slug)->firstOrFail();
+
         return response()->json($post);
     }
 
-    public function edit($id)
+    public function edit($slug)
     {
-        $post = Post::find($id);
+        if (is_numeric($slug)) {
+            $post = Post::findOrFail($slug);
+            return response()->json($post);
+        }
+        $post = Post::whereSlug($slug)->firstOrFail();
+
         return response()->json($post);
     }
 
-    public function update($id, Request $request)
+    public function update($slug, Request $request)
     {
-        $post = Post::find($id);
+        if (is_numeric($slug)) {
+            $post = Post::findOrFail($slug);
+
+            $post->update($request->all());
+
+            return response()->json('successfully updated');
+        }
+        $post = Post::whereSlug($slug)->firstOrFail();
 
         $post->update($request->all());
 
-        return response()->json('successfully updated');
+        return response()->json($post);
     }
 
-    public function delete($id)
+    public function delete($slug)
     {
-        $post = Post::find($id);
+        if (is_numeric($slug)) {
+            $post = Post::findOrFail($slug);
+
+            $post->delete();
+
+            return response()->json('successfully deleted');
+        }
+        $post = Post::whereSlug($slug)->firstOrFail();
 
         $post->delete();
 
