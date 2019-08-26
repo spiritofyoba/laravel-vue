@@ -7,6 +7,7 @@ import Register from './pages/Register.vue';
 import Login from './pages/Login.vue';
 import Dashboard from './pages/Dashboard.vue';
 import AdminDashboard from './pages/admin/Dashboard.vue';
+import PostsSearch from './pages/Search.vue';
 
 import VueRouter from 'vue-router'
 
@@ -17,6 +18,14 @@ const routes = [
         component: HomeComponent,
         meta: {
             auth: false
+        }
+    },
+    {
+        name: 'search',
+        path: '/search',
+        component: PostsSearch,
+        meta: {
+            auth: true
         }
     },
     {
