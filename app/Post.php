@@ -4,8 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
-class Post extends Model
+class Post extends Model implements Searchable
 {
     use Sluggable;
 
@@ -23,5 +25,10 @@ class Post extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    public function getSearchResult(): SearchResult
+    {
+        return new SearchResult($this, $this->title);
     }
 }

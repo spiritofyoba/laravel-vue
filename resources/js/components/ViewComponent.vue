@@ -1,5 +1,10 @@
 <template>
     <div>
+        <div class="row">
+            <div class="col-12 text-left">
+                <button class="btn btn-primary" @click="$router.go(-1)">Back</button>
+            </div>
+        </div>
         <div class="row mt-3 mb-1">
             <div class="col-md-12">
                 <h1>{{ post.title }}</h1>
