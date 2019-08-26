@@ -3130,7 +3130,7 @@ __webpack_require__.r(__webpack_exports__);
     deletePost: function deletePost(id) {
       var _this2 = this;
 
-      var uri = window.location.origin + '/api/post/delete/${id}';
+      var uri = window.location.origin + '/api/post/delete/' + id;
       this.axios["delete"](uri).then(function (response) {
         _this2.posts.splice(_this2.posts.indexOf(id), 1);
       });
@@ -3149,6 +3149,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -39747,16 +39752,18 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "col-md-2 text-right" },
+          { staticClass: "col-md-6 text-right" },
           [
-            _c(
-              "router-link",
-              {
-                staticClass: "btn btn-primary",
-                attrs: { to: { name: "create" } }
-              },
-              [_vm._v("Create Post")]
-            )
+            _vm.$auth.check(1)
+              ? _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { to: { name: "create" } }
+                  },
+                  [_c("i", { staticClass: "fa fa-plus" })]
+                )
+              : _vm._e()
           ],
           1
         )
@@ -39769,9 +39776,20 @@ var render = function() {
           [
             _c("div", { staticClass: "col-xl-1" }, [_vm._v(_vm._s(post.id))]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-xl-3" }, [
-              _vm._v(_vm._s(post.title))
-            ]),
+            _c(
+              "div",
+              { staticClass: "col-xl-3" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    attrs: { to: { name: "view", params: { id: post.slug } } }
+                  },
+                  [_vm._v(_vm._s(post.title))]
+                )
+              ],
+              1
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "col-xl-5" }, [
               _vm._v(_vm._s(post.body.slice(0, 100) + "..."))
@@ -39781,37 +39799,43 @@ var render = function() {
               "div",
               { staticClass: "col-xl-3 text-right" },
               [
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { to: { name: "edit", params: { id: post.id } } }
-                  },
-                  [_vm._v("Edit")]
-                ),
+                _vm.$auth.check(1)
+                  ? _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: {
+                          to: { name: "edit", params: { id: post.slug } }
+                        }
+                      },
+                      [_c("i", { staticClass: "fa fa-pencil" })]
+                    )
+                  : _vm._e(),
                 _vm._v(" "),
                 _c(
                   "router-link",
                   {
                     staticClass: "btn btn-success",
-                    attrs: { to: { name: "view", params: { id: post.id } } }
+                    attrs: { to: { name: "view", params: { id: post.slug } } }
                   },
-                  [_vm._v("View")]
+                  [_c("i", { staticClass: "fa fa-eye" })]
                 ),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.deletePost(post.id)
-                      }
-                    }
-                  },
-                  [_vm._v("Delete")]
-                )
+                _vm.$auth.check(1)
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.deletePost(post.slug)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fa fa-trash" })]
+                    )
+                  : _vm._e()
               ],
               1
             ),
@@ -39829,7 +39853,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-10 text-left" }, [
+    return _c("div", { staticClass: "col-md-6 text-left" }, [
       _c("h1", [_vm._v("Posts")])
     ])
   },
@@ -39894,6 +39918,19 @@ var render = function() {
                 )
               : _vm._e()
           }),
+          _vm._v(" "),
+          _vm.$auth.check()
+            ? _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c("router-link", { attrs: { to: { name: "posts" } } }, [
+                    _vm._v("Posts")
+                  ])
+                ],
+                1
+              )
+            : _vm._e(),
           _vm._v(" "),
           _vm._l(_vm.routes.user, function(route, key) {
             return _vm.$auth.check(2)

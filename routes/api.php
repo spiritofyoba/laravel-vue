@@ -32,10 +32,10 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('users', 'UserController@index')->middleware('isAdmin');
     Route::get('users/{id}', 'UserController@show')->middleware('isAdminOrSelf');
 
-    Route::post('/post/create', 'PostController@store');
-    Route::get('/post/edit/{id}', 'PostController@edit');
-    Route::post('/post/update/{id}', 'PostController@update');
-    Route::delete('/post/delete/{id}', 'PostController@delete');
     Route::get('/posts', 'PostController@index');
-    Route::get('/post/{id}', 'PostController@view');
+    Route::get('/post/{slug}', 'PostController@view');
+    Route::post('/post/create', 'PostController@store');
+    Route::post('/post/update/{slug}', 'PostController@update');
+    Route::get('/post/edit/{slug}', 'PostController@edit');
+    Route::delete('/post/delete/{slug}', 'PostController@delete');
 });
